@@ -1,0 +1,89 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@types/classnames": "^2.2.7",
+    "@types/graphql": "^14.0.7",
+    "@types/node": "11.9.5",
+    "@types/react": "16.8.5",
+    "@types/react-dom": "16.8.2",
+    "@types/react-router-dom": "^4.3.1",
+    "apollo-cache-inmemory": "^1.4.2",
+    "apollo-client": "^2.5.0",
+    "apollo-link": "^1.2.8",
+    "apollo-link-error": "^1.1.7",
+    "apollo-link-http": "^1.5.11",
+    "apollo-link-ws": "^1.0.14",
+    "apollo-utilities": "1.1.2",
+    "classnames": "^2.2.6",
+    "graphql": "^14.1.1",
+    "graphql-resolvers": "^0.3.2",
+    "graphql-tag": "2.10.1",
+    "graphql-tools": "^4.0.4",
+    "react": "^16.8.3",
+    "react-apollo": "2.4.1",
+    "react-dom": "^16.8.3",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.5",
+    "require-context.macro": "^1.0.4",
+    "subscriptions-transport-ws": "0.9.15",
+    "typescript": "3.3.3333"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@storybook/addon-actions": "^4.1.13",
+    "@storybook/addon-info": "^4.1.13",
+    "@storybook/addon-knobs": "^4.1.13",
+    "@storybook/addon-links": "^4.1.13",
+    "@storybook/addon-storyshots": "^4.1.13",
+    "@storybook/addons": "^4.1.13",
+    "@storybook/react": "^4.1.13",
+    "@types/jest": "^24.0.9",
+    "@types/storybook__react": "^4.0.1",
+    "apollo": "^2.5.3",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.5",
+    "babel-plugin-require-context-hook": "^1.0.0",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.4",
+    "prettier": "^1.16.4",
+    "prettier-eslint-cli": "4.7.1",
+    "react-docgen-typescript-loader": "^3.0.1",
+    "react-docgen-typescript-webpack-plugin": "^1.1.0",
+    "react-test-renderer": "^16.8.3",
+    "tachyons": "^4.11.1",
+    "ts-jest": "^24.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "test:docker": "docker-compose exec client npm run test",
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 9009 -s public --ci",
+    "storybook:docker": "docker-compose exec client npm run storybook",
+    "build-storybook": "build-storybook -s public",
+    "build-types": "apollo client:codegen --target=typescript types --globalTypesFile=src/types/globalTypes.ts"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  }
+}

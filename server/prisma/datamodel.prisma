@@ -1,0 +1,23 @@
+type User {
+  id: ID! @unique
+  email: String! @unique
+  password: String!
+  name: String!
+  userRoles: [UserRole!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type UserRole {
+  id: ID! @unique
+  user: User!
+  role: Role!
+}
+
+type Role {
+  id: ID! @unique
+  name: String! @unique
+  userRoles: [UserRole!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
