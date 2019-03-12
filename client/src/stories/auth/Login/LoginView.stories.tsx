@@ -1,19 +1,19 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import LoginView, { LoginViewProps } from '../../../auth/Login/LoginView';
+import LoginForm, { LoginFormProps } from '../../../auth/Login/LoginForm';
 import { ApolloError } from 'apollo-client';
 
-const loginProps: LoginViewProps = {
+const loginProps: LoginFormProps = {
   loading: false,
   error: undefined,
   login: (): any => undefined
 };
 
 storiesOf('auth / Login / LoginForm', module)
-  .add('default', () => <LoginView {...loginProps} />)
-  .add('on loading', () => <LoginView {...loginProps} loading />)
+  .add('default', () => <LoginForm {...loginProps} />)
+  .add('on loading', () => <LoginForm {...loginProps} loading />)
   .add('on error', () => (
-    <LoginView
+    <LoginForm
       {...loginProps}
       error={new ApolloError({ errorMessage: 'Invalid credentials' })}
     />

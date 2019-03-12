@@ -34,8 +34,8 @@ const SignUpForm: React.StatelessComponent<SignUpFormProps> = ({
   };
 
   return (
-    <section className="form-grid">
-      <div className="first-item">
+    <section className="signup-form-grid">
+      <div className="signup-first-item">
         <div className="bg-red white">{error && formatSignUpError(error)}</div>
         <form onSubmit={handleRegister}>
           <InputGroup>
@@ -51,7 +51,7 @@ const SignUpForm: React.StatelessComponent<SignUpFormProps> = ({
           <InputGroup>
             <Label>Email</Label>
             <Input
-              id="sign-up-email"
+              id="signup-email"
               type="email"
               required
               minLength={5}
@@ -62,7 +62,7 @@ const SignUpForm: React.StatelessComponent<SignUpFormProps> = ({
           <InputGroup>
             <Label>Password (6 minimum characters)</Label>
             <Input
-              id="sign-up-password"
+              id="signup-password"
               type="password"
               required
               minLength={6}

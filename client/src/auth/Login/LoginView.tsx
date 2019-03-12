@@ -1,27 +1,20 @@
-import React from "react";
-import { LoginVariables } from "../types/Login";
-import { ApolloError } from "apollo-client";
+import React, { useContext } from "react";
 import LoginForm from "./LoginForm";
-import "./styles.css";
 import Logo from "../../components/Logo";
+import { AuthContext } from "../AuthProvider/context";
 
-export interface LoginViewProps {
-  login: (variables: LoginVariables) => void;
-  loading: boolean;
-  error: ApolloError;
-}
 
-const LoginView: React.StatelessComponent<LoginViewProps> = ({
-  login,
-  loading,
-  error
-}) => {
+const LoginView: React.StatelessComponent = () => {
+
+  const value = useContext(AuthContext);
+  const { login, loginLoading, loginError } = value;
+
   return (
     <section className="auth-wrapper">
-      <div className="logo-wrapper">
+      <div className="login-logo-wrapper">
         <Logo />
       </div>
-      <LoginForm login={login} loading={loading} error={error} />
+      <LoginForm login={login} loading={loginLoading} error={loginError} />
     </section>
   );
 };

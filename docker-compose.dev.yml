@@ -1,0 +1,13 @@
+version: '3'
+services:
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+     PGADMIN_DEFAULT_EMAIL: email@email.com
+     PGADMIN_DEFAULT_PASSWORD: password
+     PGADMIN_LISTEN_PORT: 2020
+    ports:
+      - "2020:2020"
+    depends_on:
+     - postgres-db
+

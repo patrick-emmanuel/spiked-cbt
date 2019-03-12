@@ -18,7 +18,7 @@ const SignUpView: React.StatelessComponent<SignUpViewProps> = ({
 }) => {
   return (
     <section className="auth-wrapper">
-      <div className="logo-wrapper">
+      <div className="signup--logo-wrapper">
         <Logo />
       </div>
       <SignUpForm signUp={signUp} loading={loading} error={error} />

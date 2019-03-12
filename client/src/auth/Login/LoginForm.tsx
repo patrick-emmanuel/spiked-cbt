@@ -31,8 +31,8 @@ const LoginForm: React.StatelessComponent<LoginFormProps> = ({
   };
 
   return (
-    <div className="form-grid">
-      <div className="first-item">
+    <div className="login-form-grid">
+      <div className="login-first-item">
         <p className="slide-up">
           {error ? error.message.split(": ")[1] : ""}
         </p>
@@ -64,7 +64,7 @@ const LoginForm: React.StatelessComponent<LoginFormProps> = ({
               {loading ? "Loggin in..." : "Login"}
             </Button>
           </InputGroup>
-          <div className="loginFooter">
+          <div className="login-footer">
             <Link to="/signup">Register</Link>
           </div>
         </form>
