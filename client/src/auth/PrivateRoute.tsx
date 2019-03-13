@@ -1,7 +1,8 @@
-import * as React from 'react';
-import { Route, RouteProps, Redirect } from 'react-router-dom';
+import * as React from "react";
+import { Route, RouteProps, Redirect } from "react-router-dom";
 
-import { getAuthToken } from './utils';
+import { getAuthToken } from "./utils";
+import Navbar from "../components/Navbar";
 
 const SectionRoute: React.StatelessComponent<RouteProps> = ({
   component: Component,
@@ -15,13 +16,14 @@ const SectionRoute: React.StatelessComponent<RouteProps> = ({
         {...rest}
         render={props =>
           token ? (
-            <div className="mt-10 md:mx-64 sm:mx-16 mx-6">
+            <div>
+              <Navbar navData={["In"]} />
               <Component {...props} />
             </div>
           ) : (
             <Redirect
               to={{
-                pathname: '/login',
+                pathname: "/login",
                 state: { from: props.location }
               }}
             />
@@ -32,5 +34,5 @@ const SectionRoute: React.StatelessComponent<RouteProps> = ({
   );
 };
 
-SectionRoute.displayName = 'Route';
+SectionRoute.displayName = "Route";
 export default SectionRoute;

@@ -16,6 +16,7 @@ function loadStories() {
   require('../src/stories/auth/Login/LoginView.stories');
   require('../src/stories/auth/SignUp/SignUpForm.stories');
   require('../src/stories/components/Input/Input.stories');
+  require('../src/stories/components/Navbar/Navbar.stories');
 
   //components
   //require('../src/stories/components/Messages/Messages.stories');
