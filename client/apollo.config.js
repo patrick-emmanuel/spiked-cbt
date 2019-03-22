@@ -7,7 +7,7 @@ module.exports = {
         'src/**/*.js',
         'src/**/*.jsx'
       ],
-      name: 'storefront',
+      name: 'cbt',
       service: {
         url: 'http://api:4000/graphql',
         name: 'starter'
