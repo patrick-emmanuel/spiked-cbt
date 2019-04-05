@@ -1,0 +1,35 @@
+language: node_js
+
+node_js:
+  - "10"
+
+services:
+  - docker
+
+addons:
+  apt:
+    packages:
+      - docker-ce
+env:
+  - DOCKER_COMPOSE_VERSION=1.23.2
+
+cache:
+  directories:
+    - node_modules
+
+install: 
+  - npm install --prefix server
+  - npm install --prefix client
+
+before_script:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker-compose up -d
+  - docker ps -a
+  - sleep 20
+  - docker-compose exec -e PRISMA_ENDPOINT=http://prisma:4466/api/test api prisma deploy
+
+script:
+  - docker-compose -f docker-compose.yml -f docker-compose.test.yml run api
