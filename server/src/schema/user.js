@@ -1,6 +1,6 @@
 const { gql } = require('apollo-server-express');
 
-module.exports = gql`
+export default gql`
   extend type Query {
     loggedInUser: User
   }

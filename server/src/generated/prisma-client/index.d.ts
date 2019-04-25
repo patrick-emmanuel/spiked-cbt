@@ -11,6 +11,11 @@ type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 
 export interface Exists {
   role: (where?: RoleWhereInput) => Promise<boolean>;
+  test: (where?: TestWhereInput) => Promise<boolean>;
+  testQuestion: (where?: TestQuestionWhereInput) => Promise<boolean>;
+  testQuestionOption: (
+    where?: TestQuestionOptionWhereInput
+  ) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
   userRole: (where?: UserRoleWhereInput) => Promise<boolean>;
 }
@@ -53,6 +58,65 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => RoleConnectionPromise;
+  test: (where: TestWhereUniqueInput) => TestPromise;
+  tests: (args?: {
+    where?: TestWhereInput;
+    orderBy?: TestOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Test>;
+  testsConnection: (args?: {
+    where?: TestWhereInput;
+    orderBy?: TestOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => TestConnectionPromise;
+  testQuestion: (where: TestQuestionWhereUniqueInput) => TestQuestionPromise;
+  testQuestions: (args?: {
+    where?: TestQuestionWhereInput;
+    orderBy?: TestQuestionOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<TestQuestion>;
+  testQuestionsConnection: (args?: {
+    where?: TestQuestionWhereInput;
+    orderBy?: TestQuestionOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => TestQuestionConnectionPromise;
+  testQuestionOption: (
+    where: TestQuestionOptionWhereUniqueInput
+  ) => TestQuestionOptionPromise;
+  testQuestionOptions: (args?: {
+    where?: TestQuestionOptionWhereInput;
+    orderBy?: TestQuestionOptionOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<TestQuestionOption>;
+  testQuestionOptionsConnection: (args?: {
+    where?: TestQuestionOptionWhereInput;
+    orderBy?: TestQuestionOptionOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => TestQuestionOptionConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserPromise;
   users: (args?: {
     where?: UserWhereInput;
@@ -113,6 +177,64 @@ export interface Prisma {
   }) => RolePromise;
   deleteRole: (where: RoleWhereUniqueInput) => RolePromise;
   deleteManyRoles: (where?: RoleWhereInput) => BatchPayloadPromise;
+  createTest: (data: TestCreateInput) => TestPromise;
+  updateTest: (args: {
+    data: TestUpdateInput;
+    where: TestWhereUniqueInput;
+  }) => TestPromise;
+  updateManyTests: (args: {
+    data: TestUpdateManyMutationInput;
+    where?: TestWhereInput;
+  }) => BatchPayloadPromise;
+  upsertTest: (args: {
+    where: TestWhereUniqueInput;
+    create: TestCreateInput;
+    update: TestUpdateInput;
+  }) => TestPromise;
+  deleteTest: (where: TestWhereUniqueInput) => TestPromise;
+  deleteManyTests: (where?: TestWhereInput) => BatchPayloadPromise;
+  createTestQuestion: (data: TestQuestionCreateInput) => TestQuestionPromise;
+  updateTestQuestion: (args: {
+    data: TestQuestionUpdateInput;
+    where: TestQuestionWhereUniqueInput;
+  }) => TestQuestionPromise;
+  updateManyTestQuestions: (args: {
+    data: TestQuestionUpdateManyMutationInput;
+    where?: TestQuestionWhereInput;
+  }) => BatchPayloadPromise;
+  upsertTestQuestion: (args: {
+    where: TestQuestionWhereUniqueInput;
+    create: TestQuestionCreateInput;
+    update: TestQuestionUpdateInput;
+  }) => TestQuestionPromise;
+  deleteTestQuestion: (
+    where: TestQuestionWhereUniqueInput
+  ) => TestQuestionPromise;
+  deleteManyTestQuestions: (
+    where?: TestQuestionWhereInput
+  ) => BatchPayloadPromise;
+  createTestQuestionOption: (
+    data: TestQuestionOptionCreateInput
+  ) => TestQuestionOptionPromise;
+  updateTestQuestionOption: (args: {
+    data: TestQuestionOptionUpdateInput;
+    where: TestQuestionOptionWhereUniqueInput;
+  }) => TestQuestionOptionPromise;
+  updateManyTestQuestionOptions: (args: {
+    data: TestQuestionOptionUpdateManyMutationInput;
+    where?: TestQuestionOptionWhereInput;
+  }) => BatchPayloadPromise;
+  upsertTestQuestionOption: (args: {
+    where: TestQuestionOptionWhereUniqueInput;
+    create: TestQuestionOptionCreateInput;
+    update: TestQuestionOptionUpdateInput;
+  }) => TestQuestionOptionPromise;
+  deleteTestQuestionOption: (
+    where: TestQuestionOptionWhereUniqueInput
+  ) => TestQuestionOptionPromise;
+  deleteManyTestQuestionOptions: (
+    where?: TestQuestionOptionWhereInput
+  ) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (args: {
     data: UserUpdateInput;
@@ -153,6 +275,15 @@ export interface Subscription {
   role: (
     where?: RoleSubscriptionWhereInput
   ) => RoleSubscriptionPayloadSubscription;
+  test: (
+    where?: TestSubscriptionWhereInput
+  ) => TestSubscriptionPayloadSubscription;
+  testQuestion: (
+    where?: TestQuestionSubscriptionWhereInput
+  ) => TestQuestionSubscriptionPayloadSubscription;
+  testQuestionOption: (
+    where?: TestQuestionOptionSubscriptionWhereInput
+  ) => TestQuestionOptionSubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
@@ -172,6 +303,38 @@ export interface ClientConstructor<T> {
 export type UserRoleOrderByInput =
   | "id_ASC"
   | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type TestOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type TestQuestionOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "multipleChoice_ASC"
+  | "multipleChoice_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type TestQuestionOptionOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "value_ASC"
+  | "value_DESC"
+  | "correctOption_ASC"
+  | "correctOption_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -203,9 +366,9 @@ export type UserOrderByInput =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface UserRoleUpdateWithWhereUniqueWithoutRoleInput {
-  where: UserRoleWhereUniqueInput;
-  data: UserRoleUpdateWithoutRoleDataInput;
+export interface TestUpdateWithWhereUniqueNestedInput {
+  where: TestWhereUniqueInput;
+  data: TestUpdateDataInput;
 }
 
 export type RoleWhereUniqueInput = AtLeastOne<{
@@ -213,154 +376,70 @@ export type RoleWhereUniqueInput = AtLeastOne<{
   name?: String;
 }>;
 
-export interface RoleCreateWithoutUserRolesInput {
-  name: String;
+export interface TestQuestionUpdateDataInput {
+  multipleChoice?: Boolean;
+  options?: TestQuestionOptionUpdateManyInput;
 }
 
-export interface UserCreateInput {
-  email: String;
-  password: String;
-  name: String;
-  userRoles?: UserRoleCreateManyWithoutUserInput;
+export interface TestQuestionOptionWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  value?: String;
+  value_not?: String;
+  value_in?: String[] | String;
+  value_not_in?: String[] | String;
+  value_lt?: String;
+  value_lte?: String;
+  value_gt?: String;
+  value_gte?: String;
+  value_contains?: String;
+  value_not_contains?: String;
+  value_starts_with?: String;
+  value_not_starts_with?: String;
+  value_ends_with?: String;
+  value_not_ends_with?: String;
+  correctOption?: Boolean;
+  correctOption_not?: Boolean;
+  AND?: TestQuestionOptionWhereInput[] | TestQuestionOptionWhereInput;
+  OR?: TestQuestionOptionWhereInput[] | TestQuestionOptionWhereInput;
+  NOT?: TestQuestionOptionWhereInput[] | TestQuestionOptionWhereInput;
 }
 
-export interface UserUpdateWithoutUserRolesDataInput {
-  email?: String;
-  password?: String;
-  name?: String;
-}
-
-export interface UserRoleSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: UserRoleWhereInput;
-  AND?: UserRoleSubscriptionWhereInput[] | UserRoleSubscriptionWhereInput;
-  OR?: UserRoleSubscriptionWhereInput[] | UserRoleSubscriptionWhereInput;
-  NOT?: UserRoleSubscriptionWhereInput[] | UserRoleSubscriptionWhereInput;
-}
-
-export interface RoleCreateInput {
-  name: String;
-  userRoles?: UserRoleCreateManyWithoutRoleInput;
-}
-
-export interface RoleSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: RoleWhereInput;
-  AND?: RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput;
-  OR?: RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput;
-  NOT?: RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput;
-}
-
-export interface UserRoleCreateManyWithoutRoleInput {
-  create?: UserRoleCreateWithoutRoleInput[] | UserRoleCreateWithoutRoleInput;
-  connect?: UserRoleWhereUniqueInput[] | UserRoleWhereUniqueInput;
-}
-
-export interface UserRoleUpdateInput {
-  user?: UserUpdateOneRequiredWithoutUserRolesInput;
-  role?: RoleUpdateOneRequiredWithoutUserRolesInput;
-}
-
-export interface UserRoleCreateWithoutRoleInput {
-  user: UserCreateOneWithoutUserRolesInput;
-}
-
-export interface UserUpdateManyMutationInput {
-  email?: String;
-  password?: String;
-  name?: String;
-}
-
-export interface UserCreateOneWithoutUserRolesInput {
-  create?: UserCreateWithoutUserRolesInput;
-  connect?: UserWhereUniqueInput;
-}
-
-export interface RoleUpsertWithoutUserRolesInput {
-  update: RoleUpdateWithoutUserRolesDataInput;
-  create: RoleCreateWithoutUserRolesInput;
-}
-
-export interface UserCreateWithoutUserRolesInput {
-  email: String;
-  password: String;
-  name: String;
-}
-
-export interface RoleUpdateWithoutUserRolesDataInput {
-  name?: String;
-}
-
-export interface RoleUpdateInput {
-  name?: String;
-  userRoles?: UserRoleUpdateManyWithoutRoleInput;
-}
-
-export interface UserRoleUpdateWithoutUserDataInput {
-  role?: RoleUpdateOneRequiredWithoutUserRolesInput;
-}
-
-export interface UserRoleUpdateManyWithoutRoleInput {
-  create?: UserRoleCreateWithoutRoleInput[] | UserRoleCreateWithoutRoleInput;
-  delete?: UserRoleWhereUniqueInput[] | UserRoleWhereUniqueInput;
-  connect?: UserRoleWhereUniqueInput[] | UserRoleWhereUniqueInput;
-  disconnect?: UserRoleWhereUniqueInput[] | UserRoleWhereUniqueInput;
+export interface TestQuestionOptionUpdateManyInput {
+  create?: TestQuestionOptionCreateInput[] | TestQuestionOptionCreateInput;
   update?:
-    | UserRoleUpdateWithWhereUniqueWithoutRoleInput[]
-    | UserRoleUpdateWithWhereUniqueWithoutRoleInput;
+    | TestQuestionOptionUpdateWithWhereUniqueNestedInput[]
+    | TestQuestionOptionUpdateWithWhereUniqueNestedInput;
   upsert?:
-    | UserRoleUpsertWithWhereUniqueWithoutRoleInput[]
-    | UserRoleUpsertWithWhereUniqueWithoutRoleInput;
-  deleteMany?: UserRoleScalarWhereInput[] | UserRoleScalarWhereInput;
-}
-
-export type UserRoleWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
-
-export interface RoleCreateOneWithoutUserRolesInput {
-  create?: RoleCreateWithoutUserRolesInput;
-  connect?: RoleWhereUniqueInput;
-}
-
-export interface UserUpdateInput {
-  email?: String;
-  password?: String;
-  name?: String;
-  userRoles?: UserRoleUpdateManyWithoutUserInput;
-}
-
-export interface UserRoleUpdateWithoutRoleDataInput {
-  user?: UserUpdateOneRequiredWithoutUserRolesInput;
-}
-
-export interface UserSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: UserWhereInput;
-  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-}
-
-export interface UserUpdateOneRequiredWithoutUserRolesInput {
-  create?: UserCreateWithoutUserRolesInput;
-  update?: UserUpdateWithoutUserRolesDataInput;
-  upsert?: UserUpsertWithoutUserRolesInput;
-  connect?: UserWhereUniqueInput;
-}
-
-export interface UserRoleCreateInput {
-  user: UserCreateOneWithoutUserRolesInput;
-  role: RoleCreateOneWithoutUserRolesInput;
+    | TestQuestionOptionUpsertWithWhereUniqueNestedInput[]
+    | TestQuestionOptionUpsertWithWhereUniqueNestedInput;
+  delete?:
+    | TestQuestionOptionWhereUniqueInput[]
+    | TestQuestionOptionWhereUniqueInput;
+  connect?:
+    | TestQuestionOptionWhereUniqueInput[]
+    | TestQuestionOptionWhereUniqueInput;
+  disconnect?:
+    | TestQuestionOptionWhereUniqueInput[]
+    | TestQuestionOptionWhereUniqueInput;
+  deleteMany?:
+    | TestQuestionOptionScalarWhereInput[]
+    | TestQuestionOptionScalarWhereInput;
+  updateMany?:
+    | TestQuestionOptionUpdateManyWithWhereNestedInput[]
+    | TestQuestionOptionUpdateManyWithWhereNestedInput;
 }
 
 export interface RoleWhereInput {
@@ -416,25 +495,102 @@ export interface RoleWhereInput {
   NOT?: RoleWhereInput[] | RoleWhereInput;
 }
 
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  email?: String;
-}>;
-
-export interface UserUpsertWithoutUserRolesInput {
-  update: UserUpdateWithoutUserRolesDataInput;
-  create: UserCreateWithoutUserRolesInput;
+export interface UserCreateOneWithoutUserRolesInput {
+  create?: UserCreateWithoutUserRolesInput;
+  connect?: UserWhereUniqueInput;
 }
 
-export interface UserRoleUpdateWithWhereUniqueWithoutUserInput {
-  where: UserRoleWhereUniqueInput;
-  data: UserRoleUpdateWithoutUserDataInput;
+export interface RoleUpdateManyMutationInput {
+  name?: String;
 }
 
-export interface UserRoleUpsertWithWhereUniqueWithoutRoleInput {
-  where: UserRoleWhereUniqueInput;
-  update: UserRoleUpdateWithoutRoleDataInput;
-  create: UserRoleCreateWithoutRoleInput;
+export interface UserCreateWithoutUserRolesInput {
+  email: String;
+  password: String;
+  name: String;
+  tests?: TestCreateManyInput;
+}
+
+export interface TestQuestionOptionUpdateWithWhereUniqueNestedInput {
+  where: TestQuestionOptionWhereUniqueInput;
+  data: TestQuestionOptionUpdateDataInput;
+}
+
+export interface TestCreateManyInput {
+  create?: TestCreateInput[] | TestCreateInput;
+  connect?: TestWhereUniqueInput[] | TestWhereUniqueInput;
+}
+
+export interface TestQuestionWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  multipleChoice?: Boolean;
+  multipleChoice_not?: Boolean;
+  options_every?: TestQuestionOptionWhereInput;
+  options_some?: TestQuestionOptionWhereInput;
+  options_none?: TestQuestionOptionWhereInput;
+  AND?: TestQuestionWhereInput[] | TestQuestionWhereInput;
+  OR?: TestQuestionWhereInput[] | TestQuestionWhereInput;
+  NOT?: TestQuestionWhereInput[] | TestQuestionWhereInput;
+}
+
+export interface TestCreateInput {
+  name: String;
+  questions?: TestQuestionCreateManyInput;
+}
+
+export interface TestWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  questions_every?: TestQuestionWhereInput;
+  questions_some?: TestQuestionWhereInput;
+  questions_none?: TestQuestionWhereInput;
+  AND?: TestWhereInput[] | TestWhereInput;
+  OR?: TestWhereInput[] | TestWhereInput;
+  NOT?: TestWhereInput[] | TestWhereInput;
+}
+
+export interface TestQuestionCreateManyInput {
+  create?: TestQuestionCreateInput[] | TestQuestionCreateInput;
+  connect?: TestQuestionWhereUniqueInput[] | TestQuestionWhereUniqueInput;
 }
 
 export interface UserWhereInput {
@@ -497,6 +653,9 @@ export interface UserWhereInput {
   userRoles_every?: UserRoleWhereInput;
   userRoles_some?: UserRoleWhereInput;
   userRoles_none?: UserRoleWhereInput;
+  tests_every?: TestWhereInput;
+  tests_some?: TestWhereInput;
+  tests_none?: TestWhereInput;
   createdAt?: DateTimeInput;
   createdAt_not?: DateTimeInput;
   createdAt_in?: DateTimeInput[] | DateTimeInput;
@@ -518,37 +677,9 @@ export interface UserWhereInput {
   NOT?: UserWhereInput[] | UserWhereInput;
 }
 
-export interface UserRoleCreateManyWithoutUserInput {
-  create?: UserRoleCreateWithoutUserInput[] | UserRoleCreateWithoutUserInput;
-  connect?: UserRoleWhereUniqueInput[] | UserRoleWhereUniqueInput;
-}
-
-export interface UserRoleCreateWithoutUserInput {
-  role: RoleCreateOneWithoutUserRolesInput;
-}
-
-export interface RoleUpdateManyMutationInput {
-  name?: String;
-}
-
-export interface UserRoleScalarWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  AND?: UserRoleScalarWhereInput[] | UserRoleScalarWhereInput;
-  OR?: UserRoleScalarWhereInput[] | UserRoleScalarWhereInput;
-  NOT?: UserRoleScalarWhereInput[] | UserRoleScalarWhereInput;
+export interface TestQuestionCreateInput {
+  multipleChoice?: Boolean;
+  options?: TestQuestionOptionCreateManyInput;
 }
 
 export interface UserRoleWhereInput {
@@ -573,6 +704,391 @@ export interface UserRoleWhereInput {
   NOT?: UserRoleWhereInput[] | UserRoleWhereInput;
 }
 
+export interface TestQuestionOptionCreateManyInput {
+  create?: TestQuestionOptionCreateInput[] | TestQuestionOptionCreateInput;
+  connect?:
+    | TestQuestionOptionWhereUniqueInput[]
+    | TestQuestionOptionWhereUniqueInput;
+}
+
+export interface RoleSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: RoleWhereInput;
+  AND?: RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput;
+  OR?: RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput;
+  NOT?: RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput;
+}
+
+export interface TestQuestionOptionCreateInput {
+  value: String;
+  correctOption?: Boolean;
+}
+
+export interface UserRoleCreateInput {
+  user: UserCreateOneWithoutUserRolesInput;
+  role: RoleCreateOneWithoutUserRolesInput;
+}
+
+export interface RoleUpdateInput {
+  name?: String;
+  userRoles?: UserRoleUpdateManyWithoutRoleInput;
+}
+
+export interface UserUpdateManyMutationInput {
+  email?: String;
+  password?: String;
+  name?: String;
+}
+
+export interface UserRoleUpdateManyWithoutRoleInput {
+  create?: UserRoleCreateWithoutRoleInput[] | UserRoleCreateWithoutRoleInput;
+  delete?: UserRoleWhereUniqueInput[] | UserRoleWhereUniqueInput;
+  connect?: UserRoleWhereUniqueInput[] | UserRoleWhereUniqueInput;
+  disconnect?: UserRoleWhereUniqueInput[] | UserRoleWhereUniqueInput;
+  update?:
+    | UserRoleUpdateWithWhereUniqueWithoutRoleInput[]
+    | UserRoleUpdateWithWhereUniqueWithoutRoleInput;
+  upsert?:
+    | UserRoleUpsertWithWhereUniqueWithoutRoleInput[]
+    | UserRoleUpsertWithWhereUniqueWithoutRoleInput;
+  deleteMany?: UserRoleScalarWhereInput[] | UserRoleScalarWhereInput;
+}
+
+export interface RoleUpsertWithoutUserRolesInput {
+  update: RoleUpdateWithoutUserRolesDataInput;
+  create: RoleCreateWithoutUserRolesInput;
+}
+
+export interface UserRoleUpdateWithWhereUniqueWithoutRoleInput {
+  where: UserRoleWhereUniqueInput;
+  data: UserRoleUpdateWithoutRoleDataInput;
+}
+
+export interface RoleUpdateWithoutUserRolesDataInput {
+  name?: String;
+}
+
+export interface UserRoleUpdateWithoutRoleDataInput {
+  user?: UserUpdateOneRequiredWithoutUserRolesInput;
+}
+
+export interface UserRoleUpdateWithoutUserDataInput {
+  role?: RoleUpdateOneRequiredWithoutUserRolesInput;
+}
+
+export interface UserUpdateOneRequiredWithoutUserRolesInput {
+  create?: UserCreateWithoutUserRolesInput;
+  update?: UserUpdateWithoutUserRolesDataInput;
+  upsert?: UserUpsertWithoutUserRolesInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface UserRoleUpdateWithWhereUniqueWithoutUserInput {
+  where: UserRoleWhereUniqueInput;
+  data: UserRoleUpdateWithoutUserDataInput;
+}
+
+export interface UserUpdateWithoutUserRolesDataInput {
+  email?: String;
+  password?: String;
+  name?: String;
+  tests?: TestUpdateManyInput;
+}
+
+export interface UserUpdateInput {
+  email?: String;
+  password?: String;
+  name?: String;
+  userRoles?: UserRoleUpdateManyWithoutUserInput;
+  tests?: TestUpdateManyInput;
+}
+
+export interface TestUpdateManyInput {
+  create?: TestCreateInput[] | TestCreateInput;
+  update?:
+    | TestUpdateWithWhereUniqueNestedInput[]
+    | TestUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | TestUpsertWithWhereUniqueNestedInput[]
+    | TestUpsertWithWhereUniqueNestedInput;
+  delete?: TestWhereUniqueInput[] | TestWhereUniqueInput;
+  connect?: TestWhereUniqueInput[] | TestWhereUniqueInput;
+  disconnect?: TestWhereUniqueInput[] | TestWhereUniqueInput;
+  deleteMany?: TestScalarWhereInput[] | TestScalarWhereInput;
+  updateMany?:
+    | TestUpdateManyWithWhereNestedInput[]
+    | TestUpdateManyWithWhereNestedInput;
+}
+
+export interface RoleCreateWithoutUserRolesInput {
+  name: String;
+}
+
+export interface TestQuestionUpdateManyMutationInput {
+  multipleChoice?: Boolean;
+}
+
+export interface UserRoleCreateWithoutUserInput {
+  role: RoleCreateOneWithoutUserRolesInput;
+}
+
+export interface TestUpdateDataInput {
+  name?: String;
+  questions?: TestQuestionUpdateManyInput;
+}
+
+export type UserRoleWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface TestQuestionUpdateManyInput {
+  create?: TestQuestionCreateInput[] | TestQuestionCreateInput;
+  update?:
+    | TestQuestionUpdateWithWhereUniqueNestedInput[]
+    | TestQuestionUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | TestQuestionUpsertWithWhereUniqueNestedInput[]
+    | TestQuestionUpsertWithWhereUniqueNestedInput;
+  delete?: TestQuestionWhereUniqueInput[] | TestQuestionWhereUniqueInput;
+  connect?: TestQuestionWhereUniqueInput[] | TestQuestionWhereUniqueInput;
+  disconnect?: TestQuestionWhereUniqueInput[] | TestQuestionWhereUniqueInput;
+  deleteMany?: TestQuestionScalarWhereInput[] | TestQuestionScalarWhereInput;
+  updateMany?:
+    | TestQuestionUpdateManyWithWhereNestedInput[]
+    | TestQuestionUpdateManyWithWhereNestedInput;
+}
+
+export interface TestQuestionOptionUpdateManyMutationInput {
+  value?: String;
+  correctOption?: Boolean;
+}
+
+export interface TestQuestionUpdateWithWhereUniqueNestedInput {
+  where: TestQuestionWhereUniqueInput;
+  data: TestQuestionUpdateDataInput;
+}
+
+export interface UserRoleCreateManyWithoutRoleInput {
+  create?: UserRoleCreateWithoutRoleInput[] | UserRoleCreateWithoutRoleInput;
+  connect?: UserRoleWhereUniqueInput[] | UserRoleWhereUniqueInput;
+}
+
+export interface TestQuestionUpdateInput {
+  multipleChoice?: Boolean;
+  options?: TestQuestionOptionUpdateManyInput;
+}
+
+export interface UserRoleSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: UserRoleWhereInput;
+  AND?: UserRoleSubscriptionWhereInput[] | UserRoleSubscriptionWhereInput;
+  OR?: UserRoleSubscriptionWhereInput[] | UserRoleSubscriptionWhereInput;
+  NOT?: UserRoleSubscriptionWhereInput[] | UserRoleSubscriptionWhereInput;
+}
+
+export interface TestUpdateManyMutationInput {
+  name?: String;
+}
+
+export interface TestQuestionOptionSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: TestQuestionOptionWhereInput;
+  AND?:
+    | TestQuestionOptionSubscriptionWhereInput[]
+    | TestQuestionOptionSubscriptionWhereInput;
+  OR?:
+    | TestQuestionOptionSubscriptionWhereInput[]
+    | TestQuestionOptionSubscriptionWhereInput;
+  NOT?:
+    | TestQuestionOptionSubscriptionWhereInput[]
+    | TestQuestionOptionSubscriptionWhereInput;
+}
+
+export interface TestUpdateInput {
+  name?: String;
+  questions?: TestQuestionUpdateManyInput;
+}
+
+export interface TestSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: TestWhereInput;
+  AND?: TestSubscriptionWhereInput[] | TestSubscriptionWhereInput;
+  OR?: TestSubscriptionWhereInput[] | TestSubscriptionWhereInput;
+  NOT?: TestSubscriptionWhereInput[] | TestSubscriptionWhereInput;
+}
+
+export interface TestQuestionOptionUpdateDataInput {
+  value?: String;
+  correctOption?: Boolean;
+}
+
+export type TestWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface TestQuestionOptionUpsertWithWhereUniqueNestedInput {
+  where: TestQuestionOptionWhereUniqueInput;
+  update: TestQuestionOptionUpdateDataInput;
+  create: TestQuestionOptionCreateInput;
+}
+
+export type TestQuestionWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface TestQuestionOptionScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  value?: String;
+  value_not?: String;
+  value_in?: String[] | String;
+  value_not_in?: String[] | String;
+  value_lt?: String;
+  value_lte?: String;
+  value_gt?: String;
+  value_gte?: String;
+  value_contains?: String;
+  value_not_contains?: String;
+  value_starts_with?: String;
+  value_not_starts_with?: String;
+  value_ends_with?: String;
+  value_not_ends_with?: String;
+  correctOption?: Boolean;
+  correctOption_not?: Boolean;
+  AND?:
+    | TestQuestionOptionScalarWhereInput[]
+    | TestQuestionOptionScalarWhereInput;
+  OR?:
+    | TestQuestionOptionScalarWhereInput[]
+    | TestQuestionOptionScalarWhereInput;
+  NOT?:
+    | TestQuestionOptionScalarWhereInput[]
+    | TestQuestionOptionScalarWhereInput;
+}
+
+export type TestQuestionOptionWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface TestQuestionOptionUpdateManyWithWhereNestedInput {
+  where: TestQuestionOptionScalarWhereInput;
+  data: TestQuestionOptionUpdateManyDataInput;
+}
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  email?: String;
+}>;
+
+export interface TestQuestionOptionUpdateManyDataInput {
+  value?: String;
+  correctOption?: Boolean;
+}
+
+export interface UserRoleCreateManyWithoutUserInput {
+  create?: UserRoleCreateWithoutUserInput[] | UserRoleCreateWithoutUserInput;
+  connect?: UserRoleWhereUniqueInput[] | UserRoleWhereUniqueInput;
+}
+
+export interface TestQuestionUpsertWithWhereUniqueNestedInput {
+  where: TestQuestionWhereUniqueInput;
+  update: TestQuestionUpdateDataInput;
+  create: TestQuestionCreateInput;
+}
+
+export interface TestQuestionOptionUpdateInput {
+  value?: String;
+  correctOption?: Boolean;
+}
+
+export interface TestQuestionScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  multipleChoice?: Boolean;
+  multipleChoice_not?: Boolean;
+  AND?: TestQuestionScalarWhereInput[] | TestQuestionScalarWhereInput;
+  OR?: TestQuestionScalarWhereInput[] | TestQuestionScalarWhereInput;
+  NOT?: TestQuestionScalarWhereInput[] | TestQuestionScalarWhereInput;
+}
+
+export interface UserRoleCreateWithoutRoleInput {
+  user: UserCreateOneWithoutUserRolesInput;
+}
+
+export interface TestQuestionUpdateManyWithWhereNestedInput {
+  where: TestQuestionScalarWhereInput;
+  data: TestQuestionUpdateManyDataInput;
+}
+
+export interface TestQuestionSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: TestQuestionWhereInput;
+  AND?:
+    | TestQuestionSubscriptionWhereInput[]
+    | TestQuestionSubscriptionWhereInput;
+  OR?:
+    | TestQuestionSubscriptionWhereInput[]
+    | TestQuestionSubscriptionWhereInput;
+  NOT?:
+    | TestQuestionSubscriptionWhereInput[]
+    | TestQuestionSubscriptionWhereInput;
+}
+
+export interface TestQuestionUpdateManyDataInput {
+  multipleChoice?: Boolean;
+}
+
+export interface UserRoleUpsertWithWhereUniqueWithoutUserInput {
+  where: UserRoleWhereUniqueInput;
+  update: UserRoleUpdateWithoutUserDataInput;
+  create: UserRoleCreateWithoutUserInput;
+}
+
+export interface TestUpsertWithWhereUniqueNestedInput {
+  where: TestWhereUniqueInput;
+  update: TestUpdateDataInput;
+  create: TestCreateInput;
+}
+
 export interface UserRoleUpdateManyWithoutUserInput {
   create?: UserRoleCreateWithoutUserInput[] | UserRoleCreateWithoutUserInput;
   delete?: UserRoleWhereUniqueInput[] | UserRoleWhereUniqueInput;
@@ -587,17 +1103,119 @@ export interface UserRoleUpdateManyWithoutUserInput {
   deleteMany?: UserRoleScalarWhereInput[] | UserRoleScalarWhereInput;
 }
 
+export interface TestScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  AND?: TestScalarWhereInput[] | TestScalarWhereInput;
+  OR?: TestScalarWhereInput[] | TestScalarWhereInput;
+  NOT?: TestScalarWhereInput[] | TestScalarWhereInput;
+}
+
+export interface UserCreateInput {
+  email: String;
+  password: String;
+  name: String;
+  userRoles?: UserRoleCreateManyWithoutUserInput;
+  tests?: TestCreateManyInput;
+}
+
+export interface TestUpdateManyWithWhereNestedInput {
+  where: TestScalarWhereInput;
+  data: TestUpdateManyDataInput;
+}
+
+export interface UserSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: UserWhereInput;
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+}
+
+export interface UserRoleScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  AND?: UserRoleScalarWhereInput[] | UserRoleScalarWhereInput;
+  OR?: UserRoleScalarWhereInput[] | UserRoleScalarWhereInput;
+  NOT?: UserRoleScalarWhereInput[] | UserRoleScalarWhereInput;
+}
+
+export interface UserRoleUpsertWithWhereUniqueWithoutRoleInput {
+  where: UserRoleWhereUniqueInput;
+  update: UserRoleUpdateWithoutRoleDataInput;
+  create: UserRoleCreateWithoutRoleInput;
+}
+
+export interface UserUpsertWithoutUserRolesInput {
+  update: UserUpdateWithoutUserRolesDataInput;
+  create: UserCreateWithoutUserRolesInput;
+}
+
+export interface TestUpdateManyDataInput {
+  name?: String;
+}
+
+export interface UserRoleUpdateInput {
+  user?: UserUpdateOneRequiredWithoutUserRolesInput;
+  role?: RoleUpdateOneRequiredWithoutUserRolesInput;
+}
+
+export interface RoleCreateInput {
+  name: String;
+  userRoles?: UserRoleCreateManyWithoutRoleInput;
+}
+
+export interface RoleCreateOneWithoutUserRolesInput {
+  create?: RoleCreateWithoutUserRolesInput;
+  connect?: RoleWhereUniqueInput;
+}
+
 export interface RoleUpdateOneRequiredWithoutUserRolesInput {
   create?: RoleCreateWithoutUserRolesInput;
   update?: RoleUpdateWithoutUserRolesDataInput;
   upsert?: RoleUpsertWithoutUserRolesInput;
   connect?: RoleWhereUniqueInput;
-}
-
-export interface UserRoleUpsertWithWhereUniqueWithoutUserInput {
-  where: UserRoleWhereUniqueInput;
-  update: UserRoleUpdateWithoutUserDataInput;
-  create: UserRoleCreateWithoutUserInput;
 }
 
 export interface NodeNode {
@@ -620,43 +1238,22 @@ export interface UserRolePreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
 }
 
-export interface RoleEdge {
-  cursor: String;
-}
+export interface TestConnection {}
 
-export interface RoleEdgePromise extends Promise<RoleEdge>, Fragmentable {
-  node: <T = RolePromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface RoleEdgeSubscription
-  extends Promise<AsyncIterator<RoleEdge>>,
+export interface TestConnectionPromise
+  extends Promise<TestConnection>,
     Fragmentable {
-  node: <T = RoleSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<TestEdge>>() => T;
+  aggregate: <T = AggregateTestPromise>() => T;
 }
 
-export interface UserSubscriptionPayload {
-  mutation: MutationType;
-  updatedFields?: String[];
-}
-
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
+export interface TestConnectionSubscription
+  extends Promise<AsyncIterator<TestConnection>>,
     Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = UserPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValuesPromise>() => T;
-}
-
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<TestEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateTestSubscription>() => T;
 }
 
 export interface BatchPayload {
@@ -675,95 +1272,96 @@ export interface BatchPayloadSubscription
   count: () => Promise<AsyncIterator<Long>>;
 }
 
-export interface AggregateUserRole {
+export interface AggregateRole {
   count: Int;
 }
 
-export interface AggregateUserRolePromise
-  extends Promise<AggregateUserRole>,
+export interface AggregateRolePromise
+  extends Promise<AggregateRole>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateUserRoleSubscription
-  extends Promise<AsyncIterator<AggregateUserRole>>,
+export interface AggregateRoleSubscription
+  extends Promise<AsyncIterator<AggregateRole>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface PageInfo {
-  hasNextPage: Boolean;
-  hasPreviousPage: Boolean;
-  startCursor?: String;
-  endCursor?: String;
+export interface UserRole {
+  id: ID_Output;
 }
 
-export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
-  hasNextPage: () => Promise<Boolean>;
-  hasPreviousPage: () => Promise<Boolean>;
-  startCursor: () => Promise<String>;
-  endCursor: () => Promise<String>;
+export interface UserRolePromise extends Promise<UserRole>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  user: <T = UserPromise>() => T;
+  role: <T = RolePromise>() => T;
 }
 
-export interface PageInfoSubscription
-  extends Promise<AsyncIterator<PageInfo>>,
+export interface UserRoleSubscription
+  extends Promise<AsyncIterator<UserRole>>,
     Fragmentable {
-  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
-  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
-  startCursor: () => Promise<AsyncIterator<String>>;
-  endCursor: () => Promise<AsyncIterator<String>>;
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  user: <T = UserSubscription>() => T;
+  role: <T = RoleSubscription>() => T;
 }
 
-export interface UserRoleConnection {}
+export interface UserRoleSubscriptionPayload {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
 
-export interface UserRoleConnectionPromise
-  extends Promise<UserRoleConnection>,
+export interface UserRoleSubscriptionPayloadPromise
+  extends Promise<UserRoleSubscriptionPayload>,
     Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserRoleEdge>>() => T;
-  aggregate: <T = AggregateUserRolePromise>() => T;
+  mutation: () => Promise<MutationType>;
+  node: <T = UserRolePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UserRolePreviousValuesPromise>() => T;
 }
 
-export interface UserRoleConnectionSubscription
-  extends Promise<AsyncIterator<UserRoleConnection>>,
+export interface UserRoleSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UserRoleSubscriptionPayload>>,
     Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserRoleEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserRoleSubscription>() => T;
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UserRoleSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UserRolePreviousValuesSubscription>() => T;
 }
 
-export interface RoleConnection {}
+export interface Test {
+  id: ID_Output;
+  name: String;
+}
 
-export interface RoleConnectionPromise
-  extends Promise<RoleConnection>,
+export interface TestPromise extends Promise<Test>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  questions: <T = FragmentableArray<TestQuestion>>(args?: {
+    where?: TestQuestionWhereInput;
+    orderBy?: TestQuestionOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface TestSubscription
+  extends Promise<AsyncIterator<Test>>,
     Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<RoleEdge>>() => T;
-  aggregate: <T = AggregateRolePromise>() => T;
-}
-
-export interface RoleConnectionSubscription
-  extends Promise<AsyncIterator<RoleConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<RoleEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateRoleSubscription>() => T;
-}
-
-export interface UserEdge {
-  cursor: String;
-}
-
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
-    Fragmentable {
-  node: <T = UserSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  questions: <T = Promise<AsyncIterator<TestQuestionSubscription>>>(args?: {
+    where?: TestQuestionWhereInput;
+    orderBy?: TestQuestionOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface User {
@@ -783,6 +1381,15 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   userRoles: <T = FragmentableArray<UserRole>>(args?: {
     where?: UserRoleWhereInput;
     orderBy?: UserRoleOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  tests: <T = FragmentableArray<Test>>(args?: {
+    where?: TestWhereInput;
+    orderBy?: TestOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -809,8 +1416,586 @@ export interface UserSubscription
     first?: Int;
     last?: Int;
   }) => T;
+  tests: <T = Promise<AsyncIterator<TestSubscription>>>(args?: {
+    where?: TestWhereInput;
+    orderBy?: TestOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface RoleEdge {
+  cursor: String;
+}
+
+export interface RoleEdgePromise extends Promise<RoleEdge>, Fragmentable {
+  node: <T = RolePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface RoleEdgeSubscription
+  extends Promise<AsyncIterator<RoleEdge>>,
+    Fragmentable {
+  node: <T = RoleSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface UserPreviousValues {
+  id: ID_Output;
+  email: String;
+  password: String;
+  name: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface UserPreviousValuesPromise
+  extends Promise<UserPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  email: () => Promise<String>;
+  password: () => Promise<String>;
+  name: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface UserPreviousValuesSubscription
+  extends Promise<AsyncIterator<UserPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  email: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
+  name: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface UserRoleEdge {
+  cursor: String;
+}
+
+export interface UserRoleEdgePromise
+  extends Promise<UserRoleEdge>,
+    Fragmentable {
+  node: <T = UserRolePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UserRoleEdgeSubscription
+  extends Promise<AsyncIterator<UserRoleEdge>>,
+    Fragmentable {
+  node: <T = UserRoleSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface PageInfo {
+  hasNextPage: Boolean;
+  hasPreviousPage: Boolean;
+  startCursor?: String;
+  endCursor?: String;
+}
+
+export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
+  hasNextPage: () => Promise<Boolean>;
+  hasPreviousPage: () => Promise<Boolean>;
+  startCursor: () => Promise<String>;
+  endCursor: () => Promise<String>;
+}
+
+export interface PageInfoSubscription
+  extends Promise<AsyncIterator<PageInfo>>,
+    Fragmentable {
+  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
+  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
+  startCursor: () => Promise<AsyncIterator<String>>;
+  endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateUser {
+  count: Int;
+}
+
+export interface AggregateUserPromise
+  extends Promise<AggregateUser>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUser>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface UserSubscriptionPayload {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
+
+export interface UserSubscriptionPayloadPromise
+  extends Promise<UserSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = UserPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UserPreviousValuesPromise>() => T;
+}
+
+export interface UserSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UserSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UserPreviousValuesSubscription>() => T;
+}
+
+export interface UserConnection {}
+
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
+}
+
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
+}
+
+export interface RoleSubscriptionPayload {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
+
+export interface RoleSubscriptionPayloadPromise
+  extends Promise<RoleSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = RolePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = RolePreviousValuesPromise>() => T;
+}
+
+export interface RoleSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<RoleSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = RoleSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = RolePreviousValuesSubscription>() => T;
+}
+
+export interface AggregateTestQuestionOption {
+  count: Int;
+}
+
+export interface AggregateTestQuestionOptionPromise
+  extends Promise<AggregateTestQuestionOption>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateTestQuestionOptionSubscription
+  extends Promise<AsyncIterator<AggregateTestQuestionOption>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface RolePreviousValues {
+  id: ID_Output;
+  name: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface RolePreviousValuesPromise
+  extends Promise<RolePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface RolePreviousValuesSubscription
+  extends Promise<AsyncIterator<RolePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface TestQuestionOptionConnection {}
+
+export interface TestQuestionOptionConnectionPromise
+  extends Promise<TestQuestionOptionConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<TestQuestionOptionEdge>>() => T;
+  aggregate: <T = AggregateTestQuestionOptionPromise>() => T;
+}
+
+export interface TestQuestionOptionConnectionSubscription
+  extends Promise<AsyncIterator<TestQuestionOptionConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <
+    T = Promise<AsyncIterator<TestQuestionOptionEdgeSubscription>>
+  >() => T;
+  aggregate: <T = AggregateTestQuestionOptionSubscription>() => T;
+}
+
+export interface RoleConnection {}
+
+export interface RoleConnectionPromise
+  extends Promise<RoleConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<RoleEdge>>() => T;
+  aggregate: <T = AggregateRolePromise>() => T;
+}
+
+export interface RoleConnectionSubscription
+  extends Promise<AsyncIterator<RoleConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<RoleEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateRoleSubscription>() => T;
+}
+
+export interface TestQuestionEdge {
+  cursor: String;
+}
+
+export interface TestQuestionEdgePromise
+  extends Promise<TestQuestionEdge>,
+    Fragmentable {
+  node: <T = TestQuestionPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface TestQuestionEdgeSubscription
+  extends Promise<AsyncIterator<TestQuestionEdge>>,
+    Fragmentable {
+  node: <T = TestQuestionSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface TestSubscriptionPayload {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
+
+export interface TestSubscriptionPayloadPromise
+  extends Promise<TestSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = TestPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = TestPreviousValuesPromise>() => T;
+}
+
+export interface TestSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<TestSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = TestSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = TestPreviousValuesSubscription>() => T;
+}
+
+export interface AggregateTest {
+  count: Int;
+}
+
+export interface AggregateTestPromise
+  extends Promise<AggregateTest>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateTestSubscription
+  extends Promise<AsyncIterator<AggregateTest>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface TestPreviousValues {
+  id: ID_Output;
+  name: String;
+}
+
+export interface TestPreviousValuesPromise
+  extends Promise<TestPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+}
+
+export interface TestPreviousValuesSubscription
+  extends Promise<AsyncIterator<TestPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateUserRole {
+  count: Int;
+}
+
+export interface AggregateUserRolePromise
+  extends Promise<AggregateUserRole>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUserRoleSubscription
+  extends Promise<AsyncIterator<AggregateUserRole>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface TestQuestionOption {
+  id: ID_Output;
+  value: String;
+  correctOption: Boolean;
+}
+
+export interface TestQuestionOptionPromise
+  extends Promise<TestQuestionOption>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  value: () => Promise<String>;
+  correctOption: () => Promise<Boolean>;
+}
+
+export interface TestQuestionOptionSubscription
+  extends Promise<AsyncIterator<TestQuestionOption>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  value: () => Promise<AsyncIterator<String>>;
+  correctOption: () => Promise<AsyncIterator<Boolean>>;
+}
+
+export interface UserEdge {
+  cursor: String;
+}
+
+export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
+  node: <T = UserPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdge>>,
+    Fragmentable {
+  node: <T = UserSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface TestQuestionSubscriptionPayload {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
+
+export interface TestQuestionSubscriptionPayloadPromise
+  extends Promise<TestQuestionSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = TestQuestionPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = TestQuestionPreviousValuesPromise>() => T;
+}
+
+export interface TestQuestionSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<TestQuestionSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = TestQuestionSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = TestQuestionPreviousValuesSubscription>() => T;
+}
+
+export interface TestQuestionOptionEdge {
+  cursor: String;
+}
+
+export interface TestQuestionOptionEdgePromise
+  extends Promise<TestQuestionOptionEdge>,
+    Fragmentable {
+  node: <T = TestQuestionOptionPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface TestQuestionOptionEdgeSubscription
+  extends Promise<AsyncIterator<TestQuestionOptionEdge>>,
+    Fragmentable {
+  node: <T = TestQuestionOptionSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface TestQuestionConnection {}
+
+export interface TestQuestionConnectionPromise
+  extends Promise<TestQuestionConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<TestQuestionEdge>>() => T;
+  aggregate: <T = AggregateTestQuestionPromise>() => T;
+}
+
+export interface TestQuestionConnectionSubscription
+  extends Promise<AsyncIterator<TestQuestionConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<TestQuestionEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateTestQuestionSubscription>() => T;
+}
+
+export interface TestQuestionOptionPreviousValues {
+  id: ID_Output;
+  value: String;
+  correctOption: Boolean;
+}
+
+export interface TestQuestionOptionPreviousValuesPromise
+  extends Promise<TestQuestionOptionPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  value: () => Promise<String>;
+  correctOption: () => Promise<Boolean>;
+}
+
+export interface TestQuestionOptionPreviousValuesSubscription
+  extends Promise<AsyncIterator<TestQuestionOptionPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  value: () => Promise<AsyncIterator<String>>;
+  correctOption: () => Promise<AsyncIterator<Boolean>>;
+}
+
+export interface TestQuestionOptionSubscriptionPayload {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
+
+export interface TestQuestionOptionSubscriptionPayloadPromise
+  extends Promise<TestQuestionOptionSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = TestQuestionOptionPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = TestQuestionOptionPreviousValuesPromise>() => T;
+}
+
+export interface TestQuestionOptionSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<TestQuestionOptionSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = TestQuestionOptionSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = TestQuestionOptionPreviousValuesSubscription>() => T;
+}
+
+export interface TestQuestion {
+  id: ID_Output;
+  multipleChoice: Boolean;
+}
+
+export interface TestQuestionPromise
+  extends Promise<TestQuestion>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  multipleChoice: () => Promise<Boolean>;
+  options: <T = FragmentableArray<TestQuestionOption>>(args?: {
+    where?: TestQuestionOptionWhereInput;
+    orderBy?: TestQuestionOptionOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface TestQuestionSubscription
+  extends Promise<AsyncIterator<TestQuestion>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  multipleChoice: () => Promise<AsyncIterator<Boolean>>;
+  options: <T = Promise<AsyncIterator<TestQuestionOptionSubscription>>>(args?: {
+    where?: TestQuestionOptionWhereInput;
+    orderBy?: TestQuestionOptionOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface TestQuestionPreviousValues {
+  id: ID_Output;
+  multipleChoice: Boolean;
+}
+
+export interface TestQuestionPreviousValuesPromise
+  extends Promise<TestQuestionPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  multipleChoice: () => Promise<Boolean>;
+}
+
+export interface TestQuestionPreviousValuesSubscription
+  extends Promise<AsyncIterator<TestQuestionPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  multipleChoice: () => Promise<AsyncIterator<Boolean>>;
+}
+
+export interface TestEdge {
+  cursor: String;
+}
+
+export interface TestEdgePromise extends Promise<TestEdge>, Fragmentable {
+  node: <T = TestPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface TestEdgeSubscription
+  extends Promise<AsyncIterator<TestEdge>>,
+    Fragmentable {
+  node: <T = TestSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateTestQuestion {
+  count: Int;
+}
+
+export interface AggregateTestQuestionPromise
+  extends Promise<AggregateTestQuestion>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateTestQuestionSubscription
+  extends Promise<AsyncIterator<AggregateTestQuestion>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface Role {
@@ -854,198 +2039,28 @@ export interface RoleSubscription
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface UserRole {
-  id: ID_Output;
-}
+export interface UserRoleConnection {}
 
-export interface UserRolePromise extends Promise<UserRole>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  user: <T = UserPromise>() => T;
-  role: <T = RolePromise>() => T;
-}
-
-export interface UserRoleSubscription
-  extends Promise<AsyncIterator<UserRole>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  user: <T = UserSubscription>() => T;
-  role: <T = RoleSubscription>() => T;
-}
-
-export interface RolePreviousValues {
-  id: ID_Output;
-  name: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface RolePreviousValuesPromise
-  extends Promise<RolePreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface RolePreviousValuesSubscription
-  extends Promise<AsyncIterator<RolePreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface RoleSubscriptionPayload {
-  mutation: MutationType;
-  updatedFields?: String[];
-}
-
-export interface RoleSubscriptionPayloadPromise
-  extends Promise<RoleSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = RolePromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = RolePreviousValuesPromise>() => T;
-}
-
-export interface RoleSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<RoleSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = RoleSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = RolePreviousValuesSubscription>() => T;
-}
-
-export interface UserPreviousValues {
-  id: ID_Output;
-  email: String;
-  password: String;
-  name: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface UserPreviousValuesPromise
-  extends Promise<UserPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  email: () => Promise<String>;
-  password: () => Promise<String>;
-  name: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface UserPreviousValuesSubscription
-  extends Promise<AsyncIterator<UserPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  email: () => Promise<AsyncIterator<String>>;
-  password: () => Promise<AsyncIterator<String>>;
-  name: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface AggregateRole {
-  count: Int;
-}
-
-export interface AggregateRolePromise
-  extends Promise<AggregateRole>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateRoleSubscription
-  extends Promise<AsyncIterator<AggregateRole>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface UserConnection {}
-
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
+export interface UserRoleConnectionPromise
+  extends Promise<UserRoleConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
+  edges: <T = FragmentableArray<UserRoleEdge>>() => T;
+  aggregate: <T = AggregateUserRolePromise>() => T;
 }
 
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
+export interface UserRoleConnectionSubscription
+  extends Promise<AsyncIterator<UserRoleConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
-}
-
-export interface AggregateUser {
-  count: Int;
-}
-
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface UserRoleEdge {
-  cursor: String;
-}
-
-export interface UserRoleEdgePromise
-  extends Promise<UserRoleEdge>,
-    Fragmentable {
-  node: <T = UserRolePromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface UserRoleEdgeSubscription
-  extends Promise<AsyncIterator<UserRoleEdge>>,
-    Fragmentable {
-  node: <T = UserRoleSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface UserRoleSubscriptionPayload {
-  mutation: MutationType;
-  updatedFields?: String[];
-}
-
-export interface UserRoleSubscriptionPayloadPromise
-  extends Promise<UserRoleSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = UserRolePromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserRolePreviousValuesPromise>() => T;
-}
-
-export interface UserRoleSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserRoleSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserRoleSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserRolePreviousValuesSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserRoleEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserRoleSubscription>() => T;
 }
 
 /*
-The `Boolean` scalar type represents `true` or `false`.
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
 */
-export type Boolean = boolean;
+export type Int = number;
 
 /*
 DateTime scalar input type, allowing Date
@@ -1060,15 +2075,15 @@ export type DateTimeOutput = string;
 export type Long = string;
 
 /*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
+
+/*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
 export type ID_Input = string | number;
 export type ID_Output = string;
-
-/*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
-*/
-export type Int = number;
 
 /*
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
@@ -1082,6 +2097,18 @@ export type String = string;
 export const models = [
   {
     name: "Role",
+    embedded: false
+  },
+  {
+    name: "Test",
+    embedded: false
+  },
+  {
+    name: "TestQuestion",
+    embedded: false
+  },
+  {
+    name: "TestQuestionOption",
     embedded: false
   },
   {
