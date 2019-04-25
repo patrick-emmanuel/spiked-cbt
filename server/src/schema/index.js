@@ -1,6 +1,7 @@
 const { gql } = require('apollo-server-express');
-const userSchema = require('./user');
+import userSchema from './user';
 import roleSchema from './role';
+import testSchema from './test';
 
 const linkSchema = gql`
   scalar Date
@@ -21,5 +22,6 @@ const linkSchema = gql`
 module.exports = [
   linkSchema,
   userSchema,
-  roleSchema
+  roleSchema,
+  testSchema
 ];

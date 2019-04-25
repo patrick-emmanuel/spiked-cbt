@@ -4,6 +4,7 @@ type User {
   password: String!
   name: String!
   userRoles: [UserRole!]
+  tests: [Test!]
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -20,4 +21,22 @@ type Role {
   userRoles: [UserRole!]
   createdAt: DateTime!
   updatedAt: DateTime!
+}
+
+type Test {
+  id: ID! @unique
+  name: String!
+  questions: [TestQuestion!]!
+}
+
+type TestQuestion {
+  id: ID! @unique
+  multipleChoice: Boolean! @default(value: "false")
+  options: [TestQuestionOption!]!
+}
+
+type TestQuestionOption {
+  id: ID! @unique
+  value: String!
+  correctOption: Boolean! @default(value: "false")
 }

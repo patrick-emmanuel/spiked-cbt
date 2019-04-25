@@ -9,6 +9,18 @@ var models = [
     embedded: false
   },
   {
+    name: "Test",
+    embedded: false
+  },
+  {
+    name: "TestQuestion",
+    embedded: false
+  },
+  {
+    name: "TestQuestionOption",
+    embedded: false
+  },
+  {
     name: "User",
     embedded: false
   },
@@ -26,6 +38,18 @@ exports.prisma = new exports.Prisma();
 var models = [
   {
     name: "Role",
+    embedded: false
+  },
+  {
+    name: "Test",
+    embedded: false
+  },
+  {
+    name: "TestQuestion",
+    embedded: false
+  },
+  {
+    name: "TestQuestionOption",
     embedded: false
   },
   {
