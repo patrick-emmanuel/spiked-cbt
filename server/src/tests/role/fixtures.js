@@ -13,7 +13,7 @@ export const createRole = async variables =>
     variables
   });
 
-  export const role = async variables =>
+export const role = async variables =>
   axios.post(API_URL, {
     query: `
       query($name: String!) {
