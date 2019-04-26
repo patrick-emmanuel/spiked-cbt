@@ -5,8 +5,34 @@ export default gql`
     createTest(data: TestCreateInput!): Test!
   }
 
+  extend type Query {
+    test(where: TestWhereUniqueInput!): Test!
+    # tests(where: TestWhereInput,
+    #     orderBy: String,
+    #     skip: Int,
+    #     after: String,
+    #     before: String,
+    #     first: Int,
+    #     last: Int
+    # ): FragmentableTestArray;
+  }
+
   type Test {
     id: ID!
+    name: String
+    questions: [TestQuestion]
+  }
+
+  type TestQuestion {
+    id: ID!
+    multipleChoice: Boolean
+    options: [TestQuestionOption]
+  }
+
+  type TestQuestionOption {
+    id: ID
+    value: String
+    correctOption: Boolean
   }
 
   input TestQuestionOptionCreateInput {
@@ -30,5 +56,13 @@ export default gql`
   input TestCreateInput {
     name: String!
     questions: TestQuestionCreateManyInput
+  }
+
+  input TestWhereInput {
+    id: ID!
+  }
+
+  input TestWhereUniqueInput {
+    id: ID!
   }
 `;

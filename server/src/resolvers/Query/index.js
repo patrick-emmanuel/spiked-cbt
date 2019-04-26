@@ -1,9 +1,11 @@
 import user from "./user";
 import role from "./role";
+import test from "./test";
 
 const Query = {
   ...role,
-  ...user
+  ...user,
+  ...test
 };
 
 export default Query;

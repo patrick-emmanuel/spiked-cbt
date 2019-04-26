@@ -1,7 +1,6 @@
 import { expect } from "chai";
 
 import * as testApi from "./fixtures";
-import { prisma } from "../../generated/prisma-client";
 import "../helper";
 
 describe("test", function() {
@@ -32,6 +31,38 @@ describe("test", function() {
       });
 
       expect(data.data.createTest.id).to.be.a("string");
+    });
+  });
+  describe("test: Test", () => {
+    it("Get a test", async () => {
+      const newTest = await testApi.createTest({
+        data: {
+          name: "Patrick Test",
+          questions: {
+            create: [
+              {
+                multipleChoice: true,
+                options: {
+                  create: [
+                    {
+                      value: "Kill",
+                      correctOption: false
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      });
+
+      const where = {
+        id: newTest.data.data.createTest.id,
+      };
+
+      const { data } = await testApi.test({ where });
+
+      expect(data.data.test.id).to.eq(where.id);
     });
   });
 });

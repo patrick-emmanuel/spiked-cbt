@@ -12,3 +12,16 @@ export const createTest = async variables =>
     `,
     variables
   });
+
+export const test = async variables =>
+  axios.post(API_URL, {
+    query: `
+      query ($where: TestWhereUniqueInput!) {
+        test(where: $where) {
+          id
+          name
+        }
+      }
+    `,
+    variables
+  });
